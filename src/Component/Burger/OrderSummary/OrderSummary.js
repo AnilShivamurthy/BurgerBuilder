@@ -1,5 +1,5 @@
 import React from "react";
-import Aux from '../../../Hoc/Aux';
+import Aup from '../../../Hoc/Aup';
 
 const OrderSummary=(props)=>{
     const ingredientSummary = Object.keys(props.ingredients)
@@ -10,14 +10,14 @@ const OrderSummary=(props)=>{
             </li>)
         });
    return(
-    <Aux>
+    <Aup>
         <h3>Your Order </h3>
         <p>A delicious burger with the following ingredients:</p>
         <ul>
             {ingredientSummary}
         </ul>
         <p>Continue to checkout?</p>
-    </Aux>
+    </Aup>
    ) 
 }
 export default OrderSummary;
