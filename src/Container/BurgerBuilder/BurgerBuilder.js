@@ -13,6 +13,8 @@ const INGREDIENTS_PRICES ={
    
 };
 
+
+
 class BurgerBuilder extends Component{
     state={
         ingredients :{
@@ -22,7 +24,8 @@ class BurgerBuilder extends Component{
             meat: 0
         },
         totalPrice: 4,
-        purchasable: false
+        purchasable: false,
+        purchasing : false
     }
 
     updatePurchaseState(ingredients){
@@ -83,6 +86,31 @@ class BurgerBuilder extends Component{
         this.updatePurchaseState(updatedIngredients);
     } 
 
+    purchaseHandler=()=>{
+   
+            this.setState({
+                purchasing: true,
+            });
+    
+            // console.log(this.state.purchasing)
+   
+    }
+        
+
+    purchaseCancel=()=>{
+        this.setState({
+            purchasing: false,
+        });
+
+    }
+
+
+    purchaseContinue=()=>{
+        alert('continue');
+    }
+      
+
+
     render(){
         const disabledInfo={
             ...this.state.ingredients
@@ -92,8 +120,11 @@ class BurgerBuilder extends Component{
          }
         return(
             <Aup>
-                <Modal>
-                    <OrderSummary ingredients={this.state.ingredients} />
+                <Modal show={this.state.purchasing} modalClosed={this.purchaseCancel}>
+                    <OrderSummary ingredients={this.state.ingredients} 
+                                   cancel={this.purchaseCancel}
+                                   continue={this.purchaseContinue} 
+                                   price ={this.state.totalPrice}/>
                 </Modal>
                 <Burger ingredients={this.state.ingredients}/>
                 <BuildControls
@@ -101,7 +132,8 @@ class BurgerBuilder extends Component{
                 ingredientsRemoved={this.removeIngredientHandler}
                 disabled={disabledInfo}
                 purchasable={this.state.purchasable}
-                price={this.state.totalPrice}/>
+                price={this.state.totalPrice}
+                ordered={this.purchaseHandler}/>
             </Aup>   
 
         )
